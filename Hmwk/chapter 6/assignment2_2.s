@@ -4,7 +4,7 @@ _start:
 	mov r1, #0
 	mov r2, #11
 	mov r3, #5
-	mov r4, #0 @flag a/b or a%b
+	mov r4, #1 @flag a/b or a%b
 compare:
 	cmp r2, r3
 	beq case_equal
