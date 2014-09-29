@@ -1,7 +1,7 @@
 	.global _start
 _start:
 	mov r0, #0
-	mov r2, #222
+	mov r2, #11
 	mov r3, #5
 	mov r4, #0
 	mov r5, #0
@@ -19,6 +19,8 @@ case_positive:
 	b scale
 	
 case_negative:
+	mul r5, r0, r3
+	sub r1, r2, r5
 	b compare_flag
 case_equal:
 	add r0, r0, #1
@@ -34,7 +36,7 @@ add_scale:
 	sub r1, r1, r7
 	cmp r1, r7
 	bgt add_scale
-	b compare
+	ble compare
 
 compare_flag:
 	cmp r4, #0
