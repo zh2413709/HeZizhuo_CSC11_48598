@@ -1,5 +1,5 @@
-	.global _start
-_start:
+	.global main
+main:
 	mov r0, #0
 	mov r2, #149
 	mov r3, #5
@@ -11,16 +11,13 @@ _start:
 	mov r9, #0
 	mov r1, r2
 compare:
-	cmp r1, r3 
+	cmp r1, r3
 	beq case_equal
 case_different:
 	bmi case_negative
 case_positive:
 	b scale
-	
 case_negative:
-	mul r5, r0, r3
-	sub r1, r2, r5
 	b compare_flag
 case_equal:
 	add r0, r0, #1
@@ -47,10 +44,10 @@ swap:
 end:
 	mov r7, #1
 	swi 0
+	bx lr
 increase_scale:
 	mul r5, r6, r8
 	mov r6, r5
 	mul r7, r3, r6
 	mul r9, r7, r8
-	b check_scale	
-	
+	b check_scale
