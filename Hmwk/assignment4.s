@@ -4,7 +4,9 @@ message1 : .asciz "Hey, type a number as numerator:"
 .balign 4
 message2 : .asciz "Now, type a number as denominator:"
 .balign 4
-message3 : .asciz "%d divide by %d is %d, the remainder is %d"
+message3 : .asciz "%d divide by %d is %d\n"
+.balign 4
+message4 : .asciz "The remainder is %d\n"
 .balign 4
 scan_pattern : .asciz "%d"
 .balign 4
@@ -81,12 +83,16 @@ main:
 	bl division
 
 	mov r3, r0
-	mov r4, r1
+	mov r6, r1
 	ldr r1, address_of_number_read1
 	ldr r1, [r1]
 	ldr r2, address_of_number_read2
 	ldr r2, [r2]
 	ldr r0, address_of_message3
+	bl printf
+
+	mov r1, r6
+	ldr r0, address_of_message4
 	bl printf
 
 	ldr lr, address_of_return
@@ -95,6 +101,7 @@ main:
 address_of_message1 : .word message1
 address_of_message2 : .word message2
 address_of_message3 : .word message3
+address_of_message4 : .word message4
 address_of_scan_pattern : .word scan_pattern
 address_of_number_read1 : .word number_read1
 address_of_number_read2 : .word number_read2
