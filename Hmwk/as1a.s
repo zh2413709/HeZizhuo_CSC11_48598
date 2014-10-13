@@ -4,7 +4,7 @@ message1 : .asciz "Hey, type a number as numerator:"
 .balign 4
 message2 : .asciz "Now, type a number as denominator:"
 .balign 4
-message3 : .asciz "%d divide by %d is %d\n, the remainder is %d"
+message3 : .asciz "%d divide by %d is %d, the remainder is %d"
 .balign 4
 scan_pattern : .asciz "%d"
 .balign 4
@@ -33,7 +33,9 @@ scaleLeft:
         mov r4, r4, lsl#1 @division counter
         mov r5, r5, lsl#1 @Mod/Remainder subtraction
         cmp r1, r5
-        bmi scaleLeft
+        bge scaleLeft
+	mov r4, r4, lsr#1
+	mov r5, r5, lsr#1
 addSub:
         add r0, r0, r4
         sub r1, r1, r5
