@@ -19,8 +19,9 @@ return : .word 0
 return2 : .word 0
 
 .text
+/*division function*/
 division:
-	ldr r1, address_of_return2
+	ldr r1, address_of_return2 
 	str lr, [r1]
 
         mov r0, #0
@@ -32,26 +33,26 @@ divMod:
         beq case_equal
         bmi end @end it if r1<r3
 scaleLeft:
-        mov r4, r4, lsl#1 @division counter
-        mov r5, r5, lsl#1 @Mod/Remainder subtraction
-        cmp r1, r5
-        bge scaleLeft
-	mov r4, r4, lsr#1
-	mov r5, r5, lsr#1
+        mov r4, r4, lsl#1 /*sclae factor*/
+        mov r5, r5, lsl#1 /*subtraction factor*/
+        cmp r1, r5 
+        bge scaleLeft     /*end loop at overshoot*/
+	mov r4, r4, lsr#1 /*scale factor back*/
+	mov r5, r5, lsr#1 /*scale subtraction factor back*/
 addSub:
-        add r0, r0, r4
-        sub r1, r1, r5
-scaleRight:
+        add r0, r0, r4    /*count the subtracted scale factor*/
+        sub r1, r1, r5    /*subtract the scaled mod*/
+scaleRight:               /*shift right until just under the remainder*/
         mov r4, r4, lsr#1
         mov r5, r5, lsr#1
         cmp r1, r5
         bmi scaleRight
         cmp r4, #1
-        bge addSub
+        bge addSub        /*loop until division is complete*/
 end:
 	ldr lr, address_of_return2
 	ldr lr, [lr]
-	bx lr
+	bx lr			/*return from main using lr*/
 address_of_return2 : .word return2
 case_equal:
         mov r0, #1
@@ -62,38 +63,41 @@ main:
 	ldr r1, address_of_return
 	str lr, [r1]
 
-	ldr r0, address_of_message1
-	bl printf
+	ldr r0, address_of_message1      /*desplay the first message*/
+	bl printf                        /*call to printf*/
 
+	/* read the first input # */
 	ldr r0, address_of_scan_pattern
 	ldr r1, address_of_number_read1
 	bl scanf
 
-	ldr r0, address_of_message2
-	bl printf
+	ldr r0, address_of_message2  	/*desplay the second message*/
+	bl printf			/*call to printf*/
 
+	/* read the second input # */
 	ldr r0, address_of_scan_pattern
 	ldr r1, address_of_number_read2
 	bl scanf
 
+	/* store the two inputs into registers */
 	ldr r0, address_of_number_read1
 	ldr r2, [r0]
 	ldr r0, address_of_number_read2
 	ldr r3, [r0]
-	bl division
+	bl division /* call the function */
 
-	mov r3, r0
-	mov r6, r1
-	ldr r1, address_of_number_read1
+	mov r3, r0 /*contains the value of the counters of the division*/
+	mov r6, r1 /*contains the value of the remainder of the division*/
+	ldr r1, address_of_number_read1 /*reload the first input #*/
 	ldr r1, [r1]
-	ldr r2, address_of_number_read2
+	ldr r2, address_of_number_read2 /*reload the second input #*/
 	ldr r2, [r2]
-	ldr r0, address_of_message3
-	bl printf
+	ldr r0, address_of_message3 /*display the third message*/
+	bl printf  /*call to printf*/
 
-	mov r1, r6
-	ldr r0, address_of_message4
-	bl printf
+	mov r1, r6 /*move the remainder back to r1*/
+	ldr r0, address_of_message4 /*desplay message4*/
+	bl printf /*call to printf*/
 
 	ldr lr, address_of_return
 	ldr lr, [lr]
