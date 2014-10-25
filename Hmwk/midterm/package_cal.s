@@ -10,7 +10,7 @@ caseA:
 	sub r1, r1, #22
 	mul r1, r3, r1
 	add r2, r1, #63
-end:
+endA:
 	pop {lr}
 	bx lr
 lesser_equal_22_hours:
@@ -20,10 +20,10 @@ lesser_equal_22_hours:
 	sub r1, r1, #11
 	mul r1, r3, r1
 	add r2, r1, #30
-	b end
+	b endA
 lesser_equal_11_hours:
 	mov r2, #30
-	b end
+	b endA
 
 .global caseB
 caseB:
@@ -35,20 +35,20 @@ caseB:
         sub r1, r1, #44
         mul r1, r3, r1
         add r2, r1, #79
-end:
+endB:
         pop {lr}
         bx lr
 lesser_equal_44_hours:
         cmp r1, #22
-        ble lesser_equal_22_hours
+        ble lesser_equal_22_hours_B
         mov r3, #2
         sub r1, r1, #22
         mul r1, r3, r1
         add r2, r1, #35
-        b end
-lesser_equal_22_hours:
+        b endB
+lesser_equal_22_hours_B:
         mov r2, #35
-        b end
+        b endB
 
 .global caseC
 caseC:
@@ -60,7 +60,7 @@ caseC:
         sub r1, r1, #66
         mul r1, r3, r1
         add r2, r1, #73
-end:
+endC:
         pop {lr}
         bx lr
 lesser_equal_66_hours:
@@ -70,9 +70,9 @@ lesser_equal_66_hours:
         sub r1, r1, #33
         mul r1, r3, r1
         add r2, r1, #40
-        b end
+        b endC
 lesser_equal_33_hours:
         mov r2, #40
-        b end
+        b endC
 
 
