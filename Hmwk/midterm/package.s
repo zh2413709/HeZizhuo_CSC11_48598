@@ -1,6 +1,6 @@
 .data
 .balign 4
-message1 :.asciz "Hey, choose one of the packag ('a', 'b', 'c'): \n "
+message1 :.asciz "\nThis is the ISP packages program\nChoose one of the packag ('a', 'b', 'c'): \n "
 .balign 4
 scan_pattern : .asciz " %c"
 .balign 4
@@ -10,8 +10,8 @@ read : .word 0
 
 
 
-.global main
-main:
+.global package
+package:
 	push {lr}
 
 options:

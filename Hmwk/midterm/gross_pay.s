@@ -1,6 +1,6 @@
 .data
 .balign 4
-message1 : .asciz "Hey, tell me how many hours have you worked:"
+message1 : .asciz "\nThis is the gross pay program\nTell me how many hours have you worked:"
 .balign 4
 message2 : .asciz "How much do you get paid for each hour:"
 .balign 4
@@ -42,8 +42,8 @@ lesser_equal_twenty_hours:
 	mul r3, r1, r2
 	b end
  
-.global main
-main:
+.global gross_pay
+gross_pay:
 	push {lr}
 
 	ldr r0, address_of_message1

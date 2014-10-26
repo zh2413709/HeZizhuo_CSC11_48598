@@ -1,6 +1,6 @@
 .data
 .balign 4
-message1 : .asciz "Type in the 'n'th term of the Fibonacci Sequence: \n"
+message1 : .asciz "\nThis is the Fibonacci Sequence program\nType in the 'n'th term of the Fibonacci Sequence: \n"
 .balign 4
 message2 : .asciz " %d is the number %d term of the Fibonacci Sequence \n "
 .balign 4
@@ -40,8 +40,8 @@ end:
 	pop {lr}
 	bx lr
 
-.global main
-main:
+.global fibonacci
+fibonacci:
 	push {lr}
 
 	ldr r0, address_of_message1
