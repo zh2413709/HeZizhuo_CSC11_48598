@@ -2,9 +2,9 @@
 .balign 4
 message1 : .asciz "Type in the 'n'th term of the Fibonacci Sequence: \n"
 .balign 4
-message2 : .asciz " Term %d is the # %d term of the Fibonacci Sequence \n "
+message2 : .asciz " %d is the number %d term of the Fibonacci Sequence \n "
 .balign 4
-scan_format : .asciz " %d "
+scan_format : .asciz "%d"
 .balign 4
 read_term : .word 0
 
@@ -15,31 +15,30 @@ calculation:
 	mov r0, #0 @counter
 	mov r2, #0 @first term
 	mov r3, #1 @second term
-compare:
-	/* r4 will store the value of the 'n'th terms */
-	sub r4, r4, #2
-	cmp r0, r4
-	bmi sequence
-end:
-	pop {lr}
-	bx lr
-sequence:
-	ldr r4, address_of_read_term
-	ldr r4, [r4]
+/* r4 will store the value of the 'n'th terms */
 	cmp r4, #2
-	beq less_equal_2
+	bmi less_than_two
+	beq equal_two
 
+	sub r5, r4, #2
+compare:
+	cmp r0, r5
+	bmi sequence
+	b end
+sequence:
 	add r1, r2, r3
 	mov r2, r3
 	mov r3, r1
+	add r0, #1
 	b compare
-less_equal_2:
-	cmp r4, #0
-	bgr gr1_but_lr2
-	mov r1, #0
+equal_two:
+	mov r1, #1
 	b end
-gr1_but_lr2:
-	sub r1, r4, #1
+less_than_two:
+	mov r1, #0
+end:
+	pop {lr}
+	bx lr
 
 .global main
 main:
