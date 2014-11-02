@@ -10,7 +10,7 @@ cmp1:
 	beq end1
 	cmp r4, r2
 	addeq r5, r5, #1
-	beq end
+	beq end1
 	cmp r4, r3
 	addeq r5, r5, #1
 end1:
