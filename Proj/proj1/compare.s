@@ -7,13 +7,13 @@ cmp1:
 
 	cmp r4, r1
 	addeq r0, r0, #1
-	beq end
+	beq end1
 	cmp r4, r2
 	addeq r5, r5, #1
 	beq end
 	cmp r4, r3
 	addeq r5, r5, #1
-end:
+end1:
 	pop {lr}
 	bx lr
 
@@ -25,10 +25,10 @@ cmp2:
 	beq U2_equal_A1
 	cmp r4, r2
 	addeq r0, r0, #1
-	beq end
+	beq end2
 	cmp r4, r3
 	addeq r5, r5, #1
-end:
+end2:
 	pop {lr}
 	bx lr
 U2_equal_A1:
@@ -36,7 +36,7 @@ U2_equal_A1:
 	cmp r1, r2
 	addeq r0, r0, #1
 	subeq r5, r5, #1
-	b end
+	b end2
 
 .global cmp3
 cmp3:
@@ -48,7 +48,7 @@ cmp3:
 	beq U3_equal_A2
 	cmp r4, r3
 	addeq r0, r0, #1
-end:
+end3:
 	pop {lr}
 	bx lr
 U3_equal_A2:
@@ -56,12 +56,12 @@ U3_equal_A2:
 	cmp r2, r3
 	addeq r0, r0, #1
 	subeq r5, r5, #1
-	b end
+	b end3
 U3_equal_A1:
 	add r5, r5, #1
 	cmp r1, r3
 	addeq r0, r0, #1
 	subeq r5, r5, #1
-	b end
+	b end3
 
 

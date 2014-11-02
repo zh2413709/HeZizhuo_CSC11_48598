@@ -8,11 +8,11 @@ spot3 : .word 0
 .balign 4
 msg : .asciz "The  numbers are: %d %d %d\n "
 .balign 4
-message1 : .asciz "Now, it is your turn to make a guess, please enter 3 numbers between 0 and 6 for each:"
+message1 : .asciz "Now, it is your turn to make a guess.\n Please enter 3 numbers between 0 and 6 for each:\n"
 .balign 4
 message2 : .asciz "The result is RP: %d, WP: %d\n"
 .balign 4
-scan_format : .asciz "%d %d %d"
+scan_format : .asciz " %d %d %d"
 .balign 4
 spot1_read : .word 0
 .balign 4
