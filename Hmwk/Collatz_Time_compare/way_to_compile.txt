@@ -1,0 +1,13 @@
+compile like this:
+gcc -c branch.s
+gcc -c time.s
+gcc branch.o time.o -o test1
+
+gcc -c predication.s
+gcc -c time.s
+gcc predication.o time.o -o test2
+
+For both test1 and test2, I typed 1000
+Test 1 gives me 16 
+Test 2 gives me 12
+so predication is 25% faster

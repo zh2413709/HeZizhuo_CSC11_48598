@@ -1,3 +1,4 @@
+/* -- collatz01.s */
 .data
  
 message: .asciz "Type a number: "
@@ -5,16 +6,15 @@ scan_format : .asciz "%d"
 message2: .asciz "Length of the Hailstone sequence for %d is %d\n"
  
 .text
- 
+
 collatz:
     /* r0 contains the first argument */
-    /* Only r0, r1 and r2 are modified, 
-       so we do not need to keep anything
-       in the stack */
-    /* Since we do not do any call, we do
-       not have to keep lr either */
-   @ bl starting
-    mov r1, r0                 /* r1 ← r0 */
+    push {r4}
+    sub sp, sp, #4  /* Make sure the stack is 8 byte aligned */
+    mov r4, r0
+    mov r3, #4194304
+  collatz_repeat:
+    mov r1, r4                 /* r1 ← r0 */
     mov r0, #0                 /* r0 ← 0 */
   collatz_loop:
     cmp r1, #1                 /* compare r1 and 1 */
@@ -32,15 +32,20 @@ collatz:
     add r0, r0, #1             /* r0 ← r0 + 1 */
     b collatz_loop             /* branch back to collatz_loop */
   collatz_end:
-   @ bl ending
+    sub r3, r3, #1
+    cmp r3, #0
+    bne collatz_repeat
+    add sp, sp, #4  /* Make sure the stack is 8 byte aligned */
+    pop {r4}
     bx lr
- 
+
 .global main
 main:
     push {lr}                       /* keep lr */
     sub sp, sp, #4                  /* make room for 4 bytes in the stack */
                                     /* The stack is already 8 byte aligned */
-	bl starting 
+
+ 	bl starting /* record the starting time */
 
     ldr r0, address_of_message      /* first parameter of printf: &message */
     bl printf                       /* call printf */
@@ -52,16 +57,17 @@ main:
  
     ldr r0, [sp]                    /* first parameter of collatz:
                                        the value stored (by scanf) in the top of the stack */
-    bl collatz                      /* call collatz */ 
-
+    bl collatz                      /* call collatz */
+ 
     mov r2, r0                      /* third parameter of printf: 
                                        the result of collatz */
     ldr r1, [sp]                    /* second parameter of printf:
                                        the value stored (by scanf) in the top of the stack */
     ldr r0, address_of_message2     /* first parameter of printf: &address_of_message2 */
     bl printf
- 
-	bl ending
+
+ 	bl ending /*record the ending time and calculate the difference */
+
     add sp, sp, #4
     pop {lr}
     bx lr

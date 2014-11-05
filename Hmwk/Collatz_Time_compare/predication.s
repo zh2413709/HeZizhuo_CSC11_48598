@@ -40,6 +40,8 @@ main:
     push {lr}                       /* keep lr */
     sub sp, sp, #4                  /* make room for 4 bytes in the stack */
                                     /* The stack is already 8 byte aligned */
+
+	bl starting /* record the starting time */
  
     ldr r0, address_of_message      /* first parameter of printf: &message */
     bl printf                       /* call printf */
@@ -59,6 +61,8 @@ main:
                                        the value stored (by scanf) in the top of the stack */
     ldr r0, address_of_message2     /* first parameter of printf: &address_of_message2 */
     bl printf
+
+	bl ending /* record the second time and calculate the differences */
  
     add sp, sp, #4
     pop {lr}
