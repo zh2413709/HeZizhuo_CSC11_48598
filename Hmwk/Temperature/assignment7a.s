@@ -12,7 +12,7 @@ msg4 : .asciz "====================Invalid number, please try again!============
 temp_convert:
 	push {lr}
 
-	sub r1, r1, #32 '/* r1 - 32 */
+	sub r1, r1, #32 /* r1 - 32 */
 	add r1, r1, r1, LSL #2 /* r1 ← r1 + (r1*4) equivalent to r1 ← r1*5 */
 	mov r2, #9 /* #9 is the denominator */
 	bl divMod /* call divMod function to do the division */
@@ -32,7 +32,7 @@ ask_for_input:
 
 	ldr r0, addr_of_scan_format /* load the address of the scan format */
 	ldr r1, addr_of_temp_read /* load the address of the temperature that user entered */
-	bl scanf /& call scanf */
+	bl scanf /* call scanf */
 
 	ldr r0, addr_of_temp_read /* load the address of the user entered temperature */
 	ldr r1, [r0] /* load the content of the address */
