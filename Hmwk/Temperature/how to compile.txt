@@ -1,0 +1,4 @@
+compile like this
+gcc -c assignment7a.s
+gcc -c divMod.s
+gcc assignment7a.o divMod.o -o assignment7a
