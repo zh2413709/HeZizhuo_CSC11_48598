@@ -4,7 +4,6 @@ msg2 : .asciz "Please enter an integer  between and including 32 to 212 in faren
 msg3 : .asciz "The temperature you entered is: %d °F, which is: %d °C\n"
 temp_read : .word 0
 scan_format : .asciz "%d"
-msg4 : .asciz "====================Invalid number, please try again!====================\n" 
 
 .text
 
@@ -19,7 +18,6 @@ temp_convert:
 
 	pop {lr}
 	bx lr
-
 .global main
 main:
 	push {lr}
@@ -34,16 +32,16 @@ ask_for_input:
 	ldr r1, addr_of_temp_read /* load the address of the temperature that user entered */
 	bl scanf /* call scanf */
 
+	mov r6, #1 /*set up loop */
+	ldr r7, =15000000 /* let the program loop 15000000 times */
+loop:
 	ldr r0, addr_of_temp_read /* load the address of the user entered temperature */
 	ldr r1, [r0] /* load the content of the address */
 
-	cmp r1, #32 /* compare entered temperature to 32 */
-	bmi invalid /* If it is smaller than 32, it boecomes invalid number */
-
-	cmp r1, #212 /* compare entered temperature to 212 */
-	bgt invalid /* If it is larger than 212, it becomnes invalid as well */
-
 	bl temp_convert /* call the temperature converter function */
+
+	cmp r7, r6
+	bgt scale
 
 	mov r2, r0  /* save the result in Celsius to r2 */
 	ldr r1, addr_of_temp_read /* load the address of entered number */
@@ -53,15 +51,12 @@ ask_for_input:
 
 	pop {lr}
 	bx lr
-invalid:
-	ldr r0, addr_of_msg4 /* load the address of message4 */
-	bl printf /* call printf */
-	b ask_for_input /* branch to the beginning when the user enter an invalid number */ 
-
+scale:
+	add r6, r6, #1
+	b loop
 addr_of_msg1 : .word msg1
 addr_of_msg2 : .word msg2
 addr_of_msg3 : .word msg3
-addr_of_msg4 : .word msg4
 addr_of_temp_read : .word temp_read
 addr_of_scan_format : .word scan_format
 
