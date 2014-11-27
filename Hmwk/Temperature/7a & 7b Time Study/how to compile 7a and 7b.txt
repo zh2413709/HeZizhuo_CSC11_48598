@@ -1,0 +1,8 @@
+compile 7a_Time.s like this
+gcc -c assignment7a_Time.s
+gcc -c divMod.s
+gcc assignment7a_Time.o divMod.o -o assignment7a_Time
+
+compile 7b_Time.s like this
+gcc -c assignment7b_Time.s
+gcc -o assignment7b_Time assignment7b_Time.o
