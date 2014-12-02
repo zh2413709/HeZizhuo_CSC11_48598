@@ -17,8 +17,10 @@ msg : .asciz "Integer Dynamic Pressure = %d lbs\nCross Sectional Area x32 = %d f
 main:
 	push {lr}
 
-
-
+	/* set up loop */
+	mov r6, #1
+	ldr r7, =15000000
+loop:
 	ldr r0, addr_of_iHalf
 	ldr r1, [r0]
 	ldr r0, addr_of_iRho
@@ -58,6 +60,10 @@ main:
 	ldr r0, addr_of_iDrag
 	str r4, [r0]
 
+	cmp r7, r6
+	bgt scale
+
+
 	ldr r0, addr_of_iDynp
 	ldr r1, [r0]
 	ldr r0, addr_of_iArea
@@ -72,6 +78,9 @@ main:
 
 	pop {lr}
 	bx lr
+scale:
+	add r6, r6, #1
+	b loop
 
 addr_of_iHalf : .word iHalf
 addr_of_iRho : .word iRho

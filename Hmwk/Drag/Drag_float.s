@@ -8,7 +8,7 @@ Conv: .float 0.00694
 Cd: .float 0.4
 thirty_two: .float 32.0
 
-msg: .asciz "Floating Dynamic Pressure = %f lbs\nCross Sectional Area x32 = %f ft^2\nInteger Drag x 32 = %f lbs\n"
+msg: .asciz "Floating Dynamic Pressure = %f lbs\nCross Sectional Area x32 = %f ft^2\nFloating Drag x 32 = %f lbs\n"
 
 return: .word 0
 
@@ -20,6 +20,10 @@ main:
 	str lr, [r1]
 
 	sub sp, sp, #24
+
+	mov r6, #1 /*set up loop */
+	ldr r7, =15000000 /* let the program loop 15000000 times */
+loop:
 
 	/* Dynp calculation */
 	ldr r0, addr_Half
@@ -71,6 +75,10 @@ main:
 
 	vmul.f64 d6, d8, d6 @Drag x 32
 
+	cmp r7, r6
+	bgt scale
+
+
 	/* now, d4= Dynp, d5 = Area x 32, d6 = Drag x 32 */
 	ldr r0, =msg
 	vmov r2, r3, d4
@@ -82,6 +90,10 @@ main:
 	ldr r0, addr_return
 	ldr lr, [r0]
 	bx lr
+
+scale:
+	add r6, r6, #1
+	b loop
 
 addr_Half: .word Half
 addr_Pho: .word Pho
