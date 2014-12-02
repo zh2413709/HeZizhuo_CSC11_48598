@@ -1,0 +1,3 @@
+compile like this:
+gcc -c filename.s
+gcc -o filename filename.o
