@@ -1,7 +1,7 @@
 .data
-value:         .float 0        @Velocity (ft/sec)
-half:        .float 0.5      @Just 1/2 constant
-x_zero:      .float 600
+value:       .float 0       
+half:        .float 0.5      /* Just 1/2 constant */
+x_zero:      .float 600		/* Just 600 constant */
 msg1:  .asciz "This program solves a square root function by using the babylonian method\nInputs will be from 1 to 10^4:"
 msg2: .asciz "The square root of %f"
 msg3: .asciz " is %f\n"
