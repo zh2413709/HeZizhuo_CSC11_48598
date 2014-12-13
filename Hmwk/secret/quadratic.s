@@ -4,8 +4,8 @@ input: .word 0
 msg2: .asciz "The result is %d\n"
 scan_format: .asciz "%d"
 .text
-.global main
-main:
+.global quadratic
+quadratic:
 	push {lr}
 
 	ldr r0, =msg
@@ -28,6 +28,7 @@ main:
 	mov r3, r3, lsr #20
 
 	add r1, r2, r3
+@	add r1, r1, #1		/* I tried to figure out why all the numbers I entered result to a -1 off of the actual value. I know that it must be the accuracy of the hex number but I just don't know how to solve this problem.So I leave this line here */
 	ldr r0, =msg2
 	bl printf
 

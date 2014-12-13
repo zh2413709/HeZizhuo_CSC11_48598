@@ -83,8 +83,8 @@ check_print_loop_array:
 
 .text
 .align 4
-.global main
-main:
+.global future
+future:
 	push {r4, lr}
 
 	ldr r0, =msg

@@ -65,8 +65,8 @@ read_and_load_number:
 	bx lr
 .text
 .align 4
-.global main
-main:
+.global guess
+guess:
 	push {r4-r6, lr}
 start:
 	ldr r6, =rand_number
