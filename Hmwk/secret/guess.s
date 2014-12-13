@@ -5,7 +5,7 @@ msg: .asciz "I have a number between 1 and 1000\nCan you guess my number?  You w
 msg1: .asciz "Please type your 1st guess:"
 msg2: .asciz "Please type your 2nd guess:"
 msg3: .asciz "Please type your 3rd guess:"
-msg4: .asciz "Please tyep your %dth guess:"
+msg4: .asciz "Please type your %dth guess:"
 msg5: .asciz "Too low.  Try again.\n"
 msg6: .asciz "Too High. Try again.\n"
 msg7: .asciz "Congratulations, You guessed the number!\n"
